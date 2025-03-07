@@ -4,21 +4,20 @@ import pickle
 import requests
 
 
-# Function to fetch movie poster
+
 def fetch_poster(movie_id):
-    api_key = "a3f15063654a9486ab757268ffd30e04"  # Ensure this is correct
+    api_key = "a3f15063654a9486ab757268ffd30e04"
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}"
 
     response = requests.get(url)
     data = response.json()
 
-    if "poster_path" in data and data["poster_path"]:  # Check if poster exists
+    if "poster_path" in data and data["poster_path"]:
         return f"http://image.tmdb.org/t/p/w500{data['poster_path']}"
     else:
-        return "https://via.placeholder.com/500x750?text=No+Image"  # Placeholder image
+        return "https://via.placeholder.com/500x750?text=No+Image"
 
 
-# Movie recommendation function
 def recommend(movie):
     movie = movie.lower().strip()
 
@@ -40,11 +39,11 @@ def recommend(movie):
     return recommended_movies, recommended_movies_posters
 
 
-# Load movie data
+
 movies_dict = pickle.load(open('movie_dict.pkl', "rb"))
 movies = pd.DataFrame(movies_dict)
 
-# Streamlit UI
+
 st.title("Movie Recommender System")
 
 similarity = pickle.load(open('similarity.pkl', 'rb'))
@@ -57,19 +56,18 @@ selected_movie_name = st.selectbox(
 if st.button("Recommend"):
     recommended_movie_names, recommended_movie_posters = recommend(selected_movie_name)
 
-    # Create 5 columns dynamically
     cols = st.columns(5)
 
-    # Display first 5 movies with posters
+
     for i in range(5):
         with cols[i]:
             st.text(recommended_movie_names[i])
             st.image(recommended_movie_posters[i])
 
-    # If there are more than 5 recommendations, create another row
+
     if len(recommended_movie_names) > 5:
         cols = st.columns(5)
         for i in range(5, len(recommended_movie_names)):
-            with cols[i - 5]:  # Adjust index for second row
+            with cols[i - 5]:
                 st.text(recommended_movie_names[i])
                 st.image(recommended_movie_posters[i])
