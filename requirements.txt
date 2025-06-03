@@ -4,6 +4,6 @@ scikit-learn
 scipy
 flask
 gunicorn
-lightfm==1.16
+
 requests
 joblib
