@@ -1,0 +1,29 @@
+# Core Libraries
+numpy
+pandas
+scikit-learn
+
+# For web interface (pick one: Flask or Streamlit)
+flask
+# streamlit
+
+# Recommendation Algorithms (optional, based on use)
+scipy
+lightfm
+implicit
+
+# Model saving/loading
+joblib
+
+# If using cosine similarity
+scikit-learn
+
+# If reading JSON/CSV or visualizing
+matplotlib
+seaborn
+
+# For deployment
+gunicorn
+
+# If using Spotify API or similar (optional)
+requests
